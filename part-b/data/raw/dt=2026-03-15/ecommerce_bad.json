@@ -1,0 +1,3 @@
+{"order_id": null, "customer_id": "CUST-683", "items": [{"sku": "SKU-A", "qty": 1, "price": 29.99}], "total_amount": 29.99, "currency": "USD", "status": "completed", "event_timestamp": "2026-03-15T13:00:00Z"}
+{"order_id": "ORD-12350", "customer_id": "CUST-684", "items": [{"sku": "SKU-C", "qty": 2, "price": 19.99}], "total_amount": -10.00, "currency": "USD", "status": "failed", "event_timestamp": "2026-03-15T13:30:00Z"}
+{"order_id": "ORD-12351", "customer_id": "CUST-685", "items": [{"sku": "SKU-D", "qty": 1, "price": 49.99}], "total_amount": 49.99, "currency": "USD", "status": "completed", "event_timestamp": "2026-03-15T14:00:00Z"}

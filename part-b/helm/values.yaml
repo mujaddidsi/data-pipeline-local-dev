@@ -1,0 +1,86 @@
+# Airflow Helm Values — Local Development
+
+executor: "LocalExecutor"
+
+defaultAirflowRepository: apache/airflow
+defaultAirflowTag: "3.0.0"
+
+config:
+  webserver:
+    base_url: "http://localhost:8080"
+
+env:
+  - name: AIRFLOW__WEBSERVER__SECRET_KEY
+    value: "my_secret_key_for_local_dev"
+  - name: AIRFLOW__CORE__CSRF_ENABLED
+    value: "False"
+
+webserver:
+  replicas: 1
+  service:
+    type: NodePort
+  extraVolumes:
+    - name: dags-host
+      hostPath:
+        path: /data/dags
+        type: DirectoryOrCreate
+    - name: data-host
+      hostPath:
+        path: /data/data
+        type: DirectoryOrCreate
+  extraVolumeMounts:
+    - name: dags-host
+      mountPath: /opt/airflow/dags
+      readOnly: false
+    - name: data-host
+      mountPath: /data
+      readOnly: false
+
+scheduler:
+  replicas: 1
+  extraVolumes:
+    - name: dags-host
+      hostPath:
+        path: /data/dags
+        type: DirectoryOrCreate
+    - name: data-host
+      hostPath:
+        path: /data/data
+        type: DirectoryOrCreate
+  extraVolumeMounts:
+    - name: dags-host
+      mountPath: /opt/airflow/dags
+      readOnly: false
+    - name: data-host
+      mountPath: /data
+      readOnly: false
+
+dagProcessor:
+  extraVolumes:
+    - name: dags-host
+      hostPath:
+        path: /data/dags
+        type: DirectoryOrCreate
+  extraVolumeMounts:
+    - name: dags-host
+      mountPath: /opt/airflow/dags
+      readOnly: false
+
+triggerer:
+  enabled: false
+
+dags:
+  persistence:
+    enabled: false
+  gitSync:
+    enabled: false
+
+postgresql:
+  enabled: true
+
+redis:
+  enabled: false
+
+logs:
+  persistence:
+    enabled: false
