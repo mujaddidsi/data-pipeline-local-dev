@@ -127,3 +127,17 @@ print(df.to_string())
 - 8 rows (flattened items)
 - Bad records excluded (null order_id, negative total_amount)
 - Columns: order_id, customer_id, currency, status, total_amount, event_timestamp, order_date, sku, qty, price
+
+## Python Dependencies Approach
+No custom Dockerfile was needed for this assessment. Pandas and PyArrow are already pre-installed in the default Apache Airflow image (`apache/airflow:3.1.8`).
+
+If additional dependencies were needed, a custom Dockerfile would be:
+```dockerfile
+FROM apache/airflow:3.1.8
+RUN pip install pandas pyarrow polars
+```
+And referenced in values.yaml:
+```yaml
+defaultAirflowRepository: my-registry/custom-airflow
+defaultAirflowTag: "latest"
+```
