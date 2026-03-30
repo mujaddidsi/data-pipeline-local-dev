@@ -119,3 +119,31 @@ aws --endpoint-url=http://localhost:4566 s3 ls s3://data-lake-processed/ --recur
   ]
 }
 ```
+
+## Troubleshooting
+
+### S3 Bucket Creation Timeout
+If `terraform apply` hangs on S3 bucket creation, ensure:
+1. `s3_use_path_style = true` is set in provider.tf
+2. AWS provider version is `~> 4.0` (v5.x has compatibility issues with LocalStack 3.0.0)
+3. LocalStack container is healthy: `curl http://localhost:4566/_localstack/health`
+
+### LocalStack Not Accessible from Kubernetes Pod
+LocalStack runs in Docker network, which is separate from Kubernetes network.
+Use the WSL host IP instead of hostname:
+```bash
+# Get WSL IP
+hostname -I | awk '{print $1}'
+
+# Update Airflow variable
+kubectl exec -it airflow-scheduler-0 -n airflow -- \
+  airflow variables set S3_ENDPOINT_URL "http://<WSL_IP>:4566"
+```
+
+## AWS Credentials for LocalStack
+LocalStack does not require real AWS credentials. Set dummy values:
+```bash
+export AWS_ACCESS_KEY_ID=test
+export AWS_SECRET_ACCESS_KEY=test
+export AWS_DEFAULT_REGION=us-east-1
+```
