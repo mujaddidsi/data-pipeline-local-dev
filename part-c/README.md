@@ -8,7 +8,7 @@ This part replaces the local filesystem output from Part B with an S3-compatible
 | Component | Choice | Reason |
 |---|---|---|
 | Local AWS simulator | LocalStack 3.0.0 | Free tier, supports S3 + IAM |
-| IaC tool | Terraform | Required by assessment |
+| IaC tool | Terraform | Chosen for IaC standardization |
 | Deployment | Docker Compose | Simple local setup |
 | AWS SDK | boto3 + s3fs | Well-supported, easy S3 integration |
 

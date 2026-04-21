@@ -224,7 +224,7 @@ with DAG(
     schedule=None,
     start_date=datetime(2026, 3, 15),
     catchup=False,
-    tags=["cube", "ecommerce", "data-pipeline"],
+    tags=["ecommerce", "data-pipeline", "airflow"],
 ) as dag:
 
     t1 = PythonOperator(task_id="validate_ingest", python_callable=validate_ingest)

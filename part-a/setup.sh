@@ -4,7 +4,7 @@
 set -e
 
 echo "================================================"
-echo "  Cube DevOps Assessment — Cluster Bootstrap"
+echo "  Local Data Pipeline — Cluster Bootstrap"
 echo "================================================"
 
 # Step 1 — Cek prerequisites

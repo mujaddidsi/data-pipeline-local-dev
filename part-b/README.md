@@ -22,7 +22,7 @@ Apache Airflow v3 deployed on Kubernetes using Helm chart, with a data pipeline 
 
 ### 1. Start minikube mount (keep running in background)
 ```bash
-minikube mount /home/mujaddidsi/cube-devops-assessment/part-b:/data &
+minikube mount /home/mujaddidsi/data-pipeline-local-dev/part-b:/data &
 ```
 
 ### 2. Add Airflow Helm repo
@@ -64,7 +64,7 @@ Open browser: http://localhost:8080
 - Password: `admin`
 
 ## DAG Syncing Approach
-DAG files are synced using **hostPath volume mount** via `minikube mount`. The local directory `/home/mujaddidsi/cube-devops-assessment/part-b/dags` is mounted into the minikube VM as `/data/dags`, which is then mounted into the Airflow pods at `/opt/airflow/dags`.
+DAG files are synced using **hostPath volume mount** via `minikube mount`. The local directory `/home/mujaddidsi/data-pipeline-local-dev/part-b/dags` is mounted into the minikube VM as `/data/dags`, which is then mounted into the Airflow pods at `/opt/airflow/dags`.
 
 ## Python Dependencies
 Pandas and PyArrow are available in the Airflow pod as they are pre-installed in the default Airflow image.
@@ -110,7 +110,7 @@ kubectl exec -it airflow-scheduler-0 -n airflow -- \
 
 ### Check file exists:
 ```bash
-ls -la ~/cube-devops-assessment/part-b/data/processed/dt=2026-03-15/
+ls -la ~/data-pipeline-local-dev/part-b/data/processed/dt=2026-03-15/
 ```
 
 ### Read Parquet contents:
@@ -129,7 +129,7 @@ print(df.to_string())
 - Columns: order_id, customer_id, currency, status, total_amount, event_timestamp, order_date, sku, qty, price
 
 ## Python Dependencies Approach
-No custom Dockerfile was needed for this assessment. Pandas and PyArrow are already pre-installed in the default Apache Airflow image (`apache/airflow:3.1.8`).
+No custom Dockerfile was needed for this project. Pandas and PyArrow are already pre-installed in the default Apache Airflow image (`apache/airflow:3.1.8`).
 
 If additional dependencies were needed, a custom Dockerfile would be:
 ```dockerfile

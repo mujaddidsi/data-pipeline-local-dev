@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "data_lake" {
   tags = {
     Name        = var.bucket_name
     Environment = "local"
-    Project     = "cube-devops-assessment"
+    Project     = "data-pipeline-local-dev"
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_iam_user" "airflow_user" {
 
   tags = {
     Name    = var.iam_username
-    Project = "cube-devops-assessment"
+    Project = "data-pipeline-local-dev"
   }
 }
 
